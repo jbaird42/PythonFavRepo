@@ -1,6 +1,5 @@
 import unittest
 from pythonfavrepo.db import DB
-from pythonfavrepo import create_app
 from unittest.mock import MagicMock
 from pythonfavrepo.exceptions import FailedFetchingRecords, FailedStoringRepos
 
