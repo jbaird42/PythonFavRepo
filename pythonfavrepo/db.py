@@ -5,11 +5,11 @@ from .exceptions import FailedStoringRepos, FailedFetchingRecords
 class DB:
 
     def __init__(self, db, repo_table_name):
-        self.__db = db
+        self.database = db
         self.__table_name = repo_table_name
 
     def store_repos(self, insert_values: list):
-        connect = self.__db.connect()
+        connect = self.database.connect()
         num_added = 0
         try:
             with connect.cursor() as cursor:
@@ -41,7 +41,7 @@ class DB:
         return self.__build_model(result)
 
     def __fetch_records(self, query):
-        connect = self.__db.connect()
+        connect = self.database.connect()
         try:
             with connect.cursor() as cursor:
                 cursor.execute(query)

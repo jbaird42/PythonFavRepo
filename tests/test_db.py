@@ -7,9 +7,6 @@ from pythonfavrepo.exceptions import FailedFetchingRecords, FailedStoringRepos
 
 class TestDB(unittest.TestCase):
 
-    def setUp(self) -> None:
-        self.app = create_app(test_config={"MYSQL_REPO_TABLE_NAME": "test"})
-
     def test_store_repos(self):
         mock_mysql = MagicMock()
         mock_cursor = MagicMock()
