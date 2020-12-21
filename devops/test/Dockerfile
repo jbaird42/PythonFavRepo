@@ -9,11 +9,11 @@ WORKDIR /app
 COPY Pipfile .
 COPY Pipfile.lock .
 
-RUN pipenv install
+RUN pipenv install --dev
 ADD . /app
 
 RUN export FLASK_APP=pythonfavrepo
 
 ENTRYPOINT ["pipenv", "run"]
 
-CMD ["flask", "run", "-h", "0.0.0.0", "-p", "8000"]
+CMD ["pytest"]

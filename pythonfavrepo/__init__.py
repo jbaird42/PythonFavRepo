@@ -10,7 +10,7 @@ def create_app(test_config=None):
     app.config['MYSQL_DATABASE_USER'] = os.getenv("DB_USER", "pythonfavrepo")
     app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv("DB_PASS", "pythonfavrepo")
     app.config['MYSQL_DATABASE_DB'] = os.getenv("DB_NAME", "pythonfavrepo")
-    app.config['MYSQL_DATABASE_HOST'] = os.getenv("DB_HOST", "db")
+    app.config['MYSQL_DATABASE_HOST'] = os.getenv("DB_HOST", "localhost")
     app.config['MYSQL_DATABASE_CHARSET'] = "utf8mb4"
     app.config['MYSQL_REPO_TABLE_NAME'] = os.getenv("REPO_TABLE_NAME", "repos")
     app.config["RECORDS_PER_PAGE"] = 100
@@ -21,10 +21,10 @@ def create_app(test_config=None):
     if test_config:
         # load the test config if passed in
         app.config.from_mapping(test_config)
-    else:
-        mysql = MySQL(app)
-        app.config["DATABASE"] = DB(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
-        init_table(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
+
+    mysql = MySQL(app)
+    app.config["DATABASE"] = DB(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
+    init_table(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
 
     from . import repo
     app.register_blueprint(repo.bp)

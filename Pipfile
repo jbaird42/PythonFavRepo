@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 requests-mock = "*"
 coverage = "*"
-nose = "*"
+pytest = "*"
 
 [packages]
 flask = "*"

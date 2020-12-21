@@ -10,15 +10,14 @@ bp = Blueprint('repo_list', __name__)
 @bp.route('/')
 def index():
     db = current_app.config["DATABASE"]
-    records_per_page = current_app.config["RECORDS_PER_PAGE"]
-    limit = request.args.get("repo_count", records_per_page)
+    limit = validate_repo_count(request.args.get("repo_count"))
     repos = db.get_repo_list(limit)
     return render_template('repo/repo_list.html', repo_list=repos, repo_count=limit)
 
 
 @bp.route('/update', methods=['POST'])
 def update():
-    repo_count = int(request.form.get("repo_count", 100))
+    repo_count = validate_repo_count(request.form.get("repo_count"))
     refresh_data = request.form.get("updateCheckbox", False)
     try:
         if refresh_data:
@@ -49,3 +48,10 @@ def upsert_repos(repo_count: int):
                 repo.get("stargazers_count"),
             ))
     db.store_repos(insert_values)
+
+
+def validate_repo_count(repo_count):
+    try:
+        return int(repo_count)
+    except Exception:
+        return current_app.config["RECORDS_PER_PAGE"]
