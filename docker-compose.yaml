@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql:rw
+      - mysql_logs:/var/log/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "pythonfavrepo"
+      MYSQL_USER: "pythonfavrepo"
+      MYSQL_PASSWORD: "pythonfavrepo"
+  pythonfavrepo:
+    build:
+      dockerfile: ./devops/Dockerfile
+      context: .
+      target: app
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      DB_NAME: "pythonfavrepo"
+      DB_USER: "pythonfavrepo"
+      DB_PASS: "pythonfavrepo"
+      DB_HOST: "db"
+      FLASK_APP: "pythonfavrepo"
+      FLASK_ENV: "development"
+    depends_on:
+      - db
+volumes:
+  mysql_data: {}
+  mysql_logs: {}

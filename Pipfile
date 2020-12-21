@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+requests-mock = "*"
+coverage = "*"
+nose = "*"
+
+[packages]
+flask = "*"
+requests = "*"
+flask-mysql = "*"
+cryptography = "*"
+
+[requires]
+python_version = "3.9"

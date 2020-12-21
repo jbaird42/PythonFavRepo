@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<a class="backButton" href="{{url_for('repo_list.index')}}">Back</a>
+<hr/>
+<table class="repoTable">
+  <tr>
+    <th>Repo ID</th>
+    <th>Repo Name</th>
+    <th>URL</th>
+    <th>Created</th>
+    <th>Last Push</th>
+    <th>Description</th>
+    <th>Stars</th>
+  </tr>
+  <tr>
+    <td>{{ repo['repo_id'] }}</td>
+    <td>{{ repo['repo_name'] }}</td>
+    <td><a href="{{ repo['url'] }}">{{ repo['url'] }}</a></td>
+    <td>{{ repo['created'] }}</td>
+    <td>{{ repo['last_push'] }}</td>
+    <td>{{ repo['description'] }}</td>
+    <td>{{ repo['num_stars'] }}</td>
+  </tr>
+</table>
+{% endblock %}
