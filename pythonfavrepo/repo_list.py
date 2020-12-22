@@ -32,6 +32,11 @@ def update():
 
 
 def upsert_repos(repo_count: int):
+    """
+    upsert_repos updates/inserts repositories list by calling github api and saving the results in mysql.
+    :param repo_count: number of repos to upsert
+    :return:
+    """
     db = current_app.config["DATABASE"]
     records_per_page = current_app.config["RECORDS_PER_PAGE"]
     api = GitHubAPI()
@@ -54,6 +59,11 @@ def upsert_repos(repo_count: int):
 
 
 def validate_repo_count(repo_count):
+    """
+    Validate that repo_count is an int. if not then set default
+    :param repo_count: integer
+    :return:
+    """
     try:
         return int(repo_count)
     except Exception:

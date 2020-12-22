@@ -9,6 +9,11 @@ class DB:
         self.__table_name = repo_table_name
 
     def store_repos(self, insert_values: list):
+        """
+        store_repos will store or update repositories in mysql
+        :param insert_values: list of repos to insert
+        :return: int num_added nubmer of added repos
+        """
         connect = self.database.connect()
         num_added = 0
         try:
@@ -31,11 +36,21 @@ class DB:
         return num_added
 
     def get_repo_list(self, repo_count: int):
+        """
+        get_repo_list retrieves a list of repos from mysql
+        :param repo_count: number of repos to retrieve
+        :return: list of repos
+        """
         get_repos = f"SELECT * FROM {self.__table_name} ORDER BY num_stars DESC LIMIT {repo_count}"
         results = self.__fetch_records(get_repos)
         return self.__build_model(results)
 
     def get_repo(self, repo_id):
+        """
+        get_repo returns a single repo by id from mysql
+        :param repo_id: github id of repository
+        :return:
+        """
         get_repos = f"SELECT * FROM {self.__table_name} WHERE repo_id = {repo_id}"
         result = self.__fetch_records(get_repos)
         return self.__build_model(result)

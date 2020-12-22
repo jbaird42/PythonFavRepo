@@ -5,6 +5,11 @@ from .exceptions import FailedGitHubRequest
 class GitHubAPI:
 
     def get_repos_by_stars(self, page: int) -> dict:
+        """
+        get_repos_by_stars get the repos from the Github API by their star count
+        :param page: page number to retrieve
+        :return:
+        """
         params = {"q": "language:python", "sort": "stars", "order": "desc", "page": page,
                    "per_page": 100}
         return self.__call_search_repositories(params)
