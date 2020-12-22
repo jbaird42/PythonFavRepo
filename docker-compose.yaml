@@ -6,8 +6,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - mysql_data:/var/lib/mysql:rw
-      - mysql_logs:/var/log/mysql:rw
+      - ./pythonfavrepo:/docker-entrypoint-initdb.d/:rw
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "pythonfavrepo"
@@ -21,6 +20,7 @@ services:
     restart: always
     ports:
       - 8000:8000
+    command: wait-for-it --service db:3306 --timeout 30 -- flask run -h 0.0.0.0 -p 8000
     environment:
       DB_NAME: "pythonfavrepo"
       DB_USER: "pythonfavrepo"
@@ -28,8 +28,5 @@ services:
       DB_HOST: "db"
       FLASK_APP: "pythonfavrepo"
       FLASK_ENV: "development"
-    depends_on:
+    links:
       - db
-volumes:
-  mysql_data: {}
-  mysql_logs: {}

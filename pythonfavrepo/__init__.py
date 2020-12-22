@@ -1,6 +1,7 @@
 from flask import Flask
 from flaskext.mysql import MySQL
 from .db import DB
+from .repo_list import upsert_repos
 import os
 
 
@@ -24,7 +25,6 @@ def create_app(test_config=None):
 
     mysql = MySQL(app)
     app.config["DATABASE"] = DB(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
-    init_table(mysql, app.config['MYSQL_REPO_TABLE_NAME'])
 
     from . import repo
     app.register_blueprint(repo.bp)
@@ -32,25 +32,10 @@ def create_app(test_config=None):
     from . import repo_list
     app.register_blueprint(repo_list.bp)
     app.add_url_rule('/', endpoint='index')
+
+    if not app.config["TESTING"]:
+        # Preload data if not testing
+        with app.app_context():
+            upsert_repos(app.config["RECORDS_PER_PAGE"])
+
     return app
-
-
-def init_table(mysql, table_name):
-    conn = mysql.connect()
-    try:
-        create_table = f"""CREATE TABLE IF NOT EXISTS {table_name} (
-                                repo_id INTEGER PRIMARY KEY,
-                                repo_name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-                                url VARCHAR(255),
-                                created DATETIME,
-                                last_push DATETIME,
-                                description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-                                num_stars INTEGER
-                            );"""
-        with conn.cursor() as cursor:
-            cursor.execute(create_table)
-            conn.commit()
-    except Exception as e:
-        raise e
-    finally:
-        conn.close()

@@ -18,6 +18,7 @@ services:
       dockerfile: ./devops/test/Dockerfile
       context: .
       target: app
+    command: wait-for-it --service db:3306 --timeout 30 -- pytest
     environment:
       DB_NAME: "pythonfavrepo"
       DB_USER: "pythonfavrepo"

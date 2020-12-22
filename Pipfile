@@ -13,6 +13,7 @@ flask = "*"
 requests = "*"
 flask-mysql = "*"
 cryptography = "*"
+wait-for-it = "*"
 
 [requires]
 python_version = "3.9"

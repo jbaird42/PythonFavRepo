@@ -2,13 +2,14 @@
 {% block content %}
 <div id="spinner" style="display: none"></div>
 <form class="updateForm" action="{{ url_for('repo_list.update') }}" method="post">
-    <label for="repo_count">Repos to Display:</label>
+    <label for="repo_count">Number of Repos to Request:</label>
     <input type="number" id="repo_count" name="repo_count" value="{{repo_count}}">
     <br>
-    <label for="updateCheckbox">Update Repo Database:</label>
-    <input type="checkbox" id="updateCheckbox" name="updateCheckbox"/>
+    <label for="useLocalCheckbox">Use local data only:</label>
+    <input type="checkbox" id="useLocalCheckbox" name="useLocalCheckbox"/>
     <br>
     <input class="updateButton" type="submit" value="Update Repo List" onclick="loading();"/>
+    <p class="showingRepos">Repos Displayed: {{showing}}</p>
 </form>
 <hr/>
 <table class="repoTable">

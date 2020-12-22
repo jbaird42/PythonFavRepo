@@ -1,5 +1,10 @@
 # PythonFavRepo
-Python/Flask based application for displaying popular Python Repos on Github
+Python/Flask based application for displaying popular Python Repos on Github.
+
+## Using the Application
+The homepage of the app will display a list of the top 100 Python Repos by default.
+You may then use the 'Number of Repos to Request' input field to request more repos.
+There is also a checkbox that gives you the option to only use local data (w/o calling the Github API)
 
 ## How to run locally
 
@@ -28,5 +33,9 @@ Optionally to view coverage run:
 `pipenv run coverage run -m pytest`
 
 `pipenv run coverage report`
+
+
+
+
 
 
