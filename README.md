@@ -22,7 +22,7 @@ The following will run the tests once and exit:
 
 ------------
 
-If you would like to keep the Mysql DB container alive and run the tests multiple times then run the following commands:
+If you would like to keep the Mysql DB container alive and run the tests multiple times then run the following commands (from the project root directory):
 
 `docker-compose -f docker-compose-test.yaml up --build`
 
