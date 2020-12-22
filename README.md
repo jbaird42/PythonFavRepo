@@ -20,6 +20,8 @@ The following will run the tests once and exit:
 
 `docker-compose -f docker-compose-test.yaml up --build --abort-on-container-exit`
 
+------------
+
 If you would like to keep the Mysql DB container alive and run the tests multiple times then run the following commands:
 
 `docker-compose -f docker-compose-test.yaml up --build`
@@ -28,7 +30,7 @@ If you would like to keep the Mysql DB container alive and run the tests multipl
 
 `pipenv run pytest`
 
-Optionally to view coverage run:
+You may then optionally run the following to view coverage:
 
 `pipenv run coverage run -m pytest`
 
